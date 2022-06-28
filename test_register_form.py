@@ -42,9 +42,5 @@ def test_register_form():
         search_pass_repeat_field = chrome.find_element(By.XPATH, "//tbody/tr[15]/td[2]/input[1]")
         search_pass_repeat_field.send_keys("Pass123")
 
-
-
-
-
     finally:
         chrome.quit()

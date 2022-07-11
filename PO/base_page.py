@@ -1,10 +1,11 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BasePage:
-    def __int__(self, driver, url):
+    def __init__(self, driver, url):
         self.chrome = driver
-        self.chrome = url
+        self.url = url
         self.chrome.implicitly_wait(5)
         self.chrome.maximize_window()
 

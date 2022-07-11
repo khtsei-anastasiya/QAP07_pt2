@@ -1,19 +1,25 @@
+from lib2to3.pgen2 import driver
+
 from selenium import webdriver
 import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.alert import Alert
 
 
 def test_register_form():
     chrome = webdriver.Chrome('./chromedriver')
     try:
         url_3 = "https://demo.guru99.com/test/newtours/register.php"
-        wait = WebDriverWait(chrome, 30)
+        wait = WebDriverWait(chrome, 50)
         chrome.get(url_3)
         chrome.fullscreen_window()
-        wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//div[contains(@class,'footer-container')]/descendant::button[@id='save']"))).click()
+        time.sleep(30)
+        alert = chrome.switch_to.alert.text("//*[contains(text(), 'Управляйте конфиденциальностью')")
+        alert.accept()
+        wait.until(EC.frame_to_be_available_and_switch_to_it(
+            (By.XPATH, "//div[contains(@class,'footer-container')]")))
         search_first_name_field = chrome.find_element(By.XPATH, "//tbody/tr[2]/td[2]/input[1]")
         search_first_name_field.send_keys("Test")
         search_last_name_field = chrome.find_element(By.XPATH, "//tbody/tr[3]/td[2]/input[1]")
